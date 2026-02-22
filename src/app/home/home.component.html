@@ -1,0 +1,74 @@
+<main class="page">
+  <header class="hero">
+    <h1 class="hero__title">Meal Planner</h1>
+    <p class="hero__subtitle">
+      Enter ingredients you have on hand and discover high protein, high fiber, and balanced meal recipes.
+    </p>
+  </header>
+
+  <section class="search-section">
+    <div class="ingredient-input">
+      <input
+        type="text"
+        class="ingredient-input__field"
+        placeholder="Add an ingredient (e.g. chicken, quinoa, spinach)"
+        [(ngModel)]="currentIngredient"
+        (keydown)="onKeydown($event)"
+      />
+      <button type="button" class="btn btn--primary" (click)="addIngredient()">
+        Add
+      </button>
+    </div>
+
+    @if (ingredients.length > 0) {
+      <div class="ingredient-tags">
+        @for (ing of ingredients; track ing) {
+          <span class="tag">
+            {{ ing }}
+            <button type="button" class="tag__remove" (click)="removeIngredient(ing)" aria-label="Remove">
+              &times;
+            </button>
+          </span>
+        }
+      </div>
+    }
+  </section>
+
+  <section class="filters">
+    <h2 class="filters__title">Filter by meal type</h2>
+    <div class="filter-buttons">
+      <button
+        type="button"
+        class="filter-btn"
+        [class.filter-btn--active]="selectedCategory === null"
+        (click)="setCategory(null)"
+      >
+        All Recipes
+      </button>
+      @for (cat of categories; track cat.id) {
+        <button
+          type="button"
+          class="filter-btn"
+          [class.filter-btn--active]="selectedCategory === cat.id"
+          (click)="setCategory(cat.id)"
+        >
+          {{ cat.label }}
+        </button>
+      }
+    </div>
+  </section>
+
+  <section class="recipes">
+    <h2 class="recipes__title">
+      {{ recipes.length }} recipe{{ recipes.length !== 1 ? 's' : '' }} found
+    </h2>
+    <div class="recipe-grid">
+      @for (recipe of recipes; track recipe.id) {
+        <app-recipe-card [recipe]="recipe" />
+      }
+    </div>
+    @if (recipes.length === 0) {
+      <p class="recipes__empty">No recipes match your criteria. Try adding different ingredients or changing the filter.</p>
+    }
+  </section>
+</main>

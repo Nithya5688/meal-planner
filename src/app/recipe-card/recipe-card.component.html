@@ -1,0 +1,35 @@
+<article class="recipe-card" [ngClass]="categoryClass">
+  <div class="recipe-card__header">
+    <span class="recipe-card__badge">{{ categoryLabel }}</span>
+    <h3 class="recipe-card__title">{{ recipe.name }}</h3>
+    <p class="recipe-card__desc">{{ recipe.description }}</p>
+  </div>
+
+  <div class="recipe-card__meta">
+    <span>{{ recipe.prepTime + recipe.cookTime }} min</span>
+    <span>{{ recipe.servings }} servings</span>
+  </div>
+
+  <div class="recipe-card__nutrition">
+    <span title="Protein">{{ recipe.nutrition.protein }}g P</span>
+    <span title="Fiber">{{ recipe.nutrition.fiber }}g F</span>
+    <span title="Calories">{{ recipe.nutrition.calories }} cal</span>
+  </div>
+
+  <div class="recipe-card__ingredients">
+    <strong>Ingredients:</strong>
+    {{ recipe.ingredients.join(', ') }}
+  </div>
+
+  <button type="button" class="recipe-card__toggle" (click)="toggleExpanded()">
+    {{ expanded ? 'Hide instructions' : 'Show instructions' }}
+  </button>
+
+  @if (expanded) {
+    <ol class="recipe-card__instructions">
+      @for (step of recipe.instructions; track $index) {
+        <li>{{ step }}</li>
+      }
+    </ol>
+  }
+</article>
