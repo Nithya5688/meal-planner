@@ -22,6 +22,7 @@ export class HomeComponent {
 
   constructor(private recipeService: RecipeService) {
     this.search();
+    //Search for git rebase - main
   }
 
   addIngredient(): void {
