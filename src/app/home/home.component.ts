@@ -33,7 +33,11 @@ export class HomeComponent {
       this.ingredients.push(trimmed);
       this.currentIngredient = '';
       this.search();
+
             //Search for git merge - FEature
+
+      //Search for git merge - main
+
     }
   }
 
